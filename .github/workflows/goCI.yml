@@ -58,6 +58,25 @@ jobs: #Job to execute on event
       if: always()
       with:
         files: report.xml
+        
+    - if: ${{ success() }}
+      name: Create Upload directory
+      run: mkdir upload
+    
+    - name: Prepare Documents
+      run: mv report.xml ./upload
+      
+    - name: Prepare artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: assetDocuments
+        path: upload
+    
+    - name: Download Content
+      uses: actions/download-artifact@v2
+      with:
+        name: assetDocuments
+    
     
     - if: ${{ failure() }}
       name: Create Issues Notifications
