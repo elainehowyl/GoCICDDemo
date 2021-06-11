@@ -21,4 +21,12 @@ jobs: #Job to execute on event
     - name: Show Go Version
       run: |
         go version 
+        
+    - name: Checkout our codes #bring repo code to virtual environment
+      uses: actions/checkout@v2
+      
+    - name: Check file system #check virtual environment has my files
+      run: |
+        ls
+        cat calc.go 
 
